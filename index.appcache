@@ -1,0 +1,17 @@
+CACHE MANIFEST
+# version 1.0.0
+
+CACHE:
+index.html
+/lungo.js/lungo-1.1.2.min.css 
+/lungo.js/lungo.theme.default.css 
+/lungo.js/lungo-1.1.2.packed.js 
+
+
+NETWORK:
+/app/app.js 
+/app/data.js 
+/app/events.js 
+/app/services.js 
+/app/view.js 
+*
