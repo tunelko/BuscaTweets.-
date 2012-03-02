@@ -13,5 +13,6 @@ NETWORK:
 /app/data.js 
 /app/events.js 
 /app/services.js 
+/app/services.quo.js 
 /app/view.js 
 *
