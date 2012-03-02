@@ -8,26 +8,23 @@ App.Services = (function(lng, app, undefined) {
             // include_entities: 'false',
             callback : '?'
         };
-            
     
         var twitter_search_url = "http://search.twitter.com/search.json";
         // Sugar Growl loading ...
         lng.Sugar.Growl.show (' Espere', '',  'loading', true, 0);
         
         $$.get(twitter_search_url, twitter_params, function(response){
-            // solo queremos tweets
+            // we want only a part of tweet-obj
             data = response.results;
             var data_to_bind = [];
             var data_to_insert = [];
             var to_user = '';
             var url = '';
             var vacio = false; 
-            
+
+           // we got no items to show  
             if (data.length == 0){
-                
- 
                 var vacio = true; 
-              
                 data_to_bind.push({
                     tweet_text : "¡ No hay resultados !",
                     tweet_author: '<a href="#back"" data-target="section" data-icon="target">Volver al término de búsqueda</a>',
@@ -43,7 +40,7 @@ App.Services = (function(lng, app, undefined) {
                 }else{
                     to_user = '';
                 }
-
+		// make the data inside the list from json. 
                 data_to_bind.push({
                     tweet_date: data[i]['created_at'].replace("+0000",""),
                     tweet_text : "<a href='https://twitter.com/#!/"+ data[i]['from_user']+"/status/"+ data[i]['id_str'] + "' target='_self'>"+data[i]['text']+"</a>",
@@ -63,25 +60,22 @@ App.Services = (function(lng, app, undefined) {
                 });            
             }
         
-            // db local .
-            // App.Data.cacheTweets(data_to_insert);
+            // @ToDo: this line is commented due awaiting a cache db local system.
+            // App.Data.cacheTweets(data_to_insert);	
+	    // Call to our render_list method in view that prints the data list.  
             App.View.render_list(data_to_bind);
            
-            //ocultamos loading ...
+            //hide sugar loading ...
             lng.Sugar.Growl.hide();
             if (vacio === true){
-                // quitar pulldown.
+                // remove pulldown when no tweets can be found.
                 $$("#pullDown").remove();
             }
                 
         }
-
-        );
-
-
-    }
+    );
+}
     
-     
     return {
         getSearch: getSearch
     }
