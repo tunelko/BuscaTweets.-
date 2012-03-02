@@ -1,5 +1,4 @@
 App.Services = (function(lng, app, undefined) {
-
     var getSearch = function(search_term){
         var twitter_params = {
             q : encodeURIComponent(search_term),
