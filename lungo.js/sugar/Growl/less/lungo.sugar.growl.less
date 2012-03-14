@@ -1,0 +1,209 @@
+@import "mixins.less";
+
+@growl_opacity: rgba(0,0,0,0.5);
+@defaultTrasition : @easeOutSine;
+@keyframe: 250ms;
+
+@modal_opacity: rgba(0,0,0,0.75);
+@modal_size: 136px;
+@modal_size_middle: 68px;
+@modal_border_radius: 2px;
+
+@notify_font_color: #555;
+@notify_font_shadow: 0 1px 0px rgba(255,255,255,0.75);
+
+@font_color: #fff;
+@font_size: 95%;
+
+.growl {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	background: none;
+	font-size: @font_size;
+	color: @font_color;
+	display:none;
+	
+	&.modal { background-color: @growl_opacity; }
+	
+	/* @group .modal */
+	& .modal {
+    	position: relative;
+		width: @modal_size;
+		margin: -@modal_size_middle auto auto -@modal_size_middle;
+	
+		left: 50%;
+		top: 50%;
+		z-index: 1;
+		padding: 8px 0;
+		background-color: @modal_opacity;
+		.border-radius(@modal_border_radius);
+		text-align: center;
+		
+		opacity: 0;
+		.transform(translate3d(0, 100%, 0));
+		transition-property: -webkit-transform, transform, opacity;
+		-webkit-transition: @keyframe @defaultTrasition;
+		
+	    &.show {
+    		opacity: 1;
+			.transform(translate3d(0, 0%, 0));
+		}
+	    
+	    &.url {
+    		left: 0%;
+    		top: 00%;
+    		width: 280px;
+    		height: auto;
+    		margin: 64px auto 0px;
+    		padding: 0px;
+    		
+    		& .close {
+				position: absolute;
+				top: -14px;
+				right: -14px;
+    			
+    			font-size: 20px;
+    			line-height: 25px;
+    			font-weight: normal;
+    			width: 24px;
+    			height: 24px;
+    			background: #000;
+    			border-radius: 14px;
+    			border: solid 2px #fff;
+    			box-shadow: 0 0 4px black;
+			}
+		}
+	}
+	
+	/* @end */
+}
+
+	.growl .modal .icon {
+		display: block;
+		font-size:72px;
+		font-weight: normal !important;
+		line-height: 80px;
+	}
+
+	.growl .modal strong{
+		margin: 0 8px 8px;
+		display: block;
+	}
+
+	.growl .modal small {
+		margin: 0 8px 8px;
+		display: block;
+		font-size: 0.8em;
+		font-weight: normal;
+	}
+
+	/* @group modal.input */
+	.growl .modal.input {
+	    width: 224px !important;
+	    margin: -@modal_size_middle auto auto -122px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	.growl .modal.input a {
+		margin: 6px 0 0;
+		height: 24px;
+
+		display: block;
+		font-size: 14px;
+		line-height: 32px;
+		height:32px;
+	}
+
+	.growl .modal.input a .icon{
+		left: 24px;
+		font-size: 24px;
+		line-height: 31px;
+	}
+	/* @end */
+
+
+	/* @group modal.working */
+	.growl .modal.working span{
+		-webkit-animation: growl-working 1s infinite;
+	}
+	/*
+	@-webkit-keyframes growl-working {
+		0% {opacity: 1;}
+		50% {opacity: 0;}
+		100% {opacity: 1;}
+	}
+	*/
+	/* @end */
+
+	/* @group modal.loading */
+	.growl .modal.loading span{
+		-webkit-animation: growl-loading 1s infinite;
+	}
+	/*
+	@-webkit-keyframes growl-working {
+		0% {opacity: 1;}
+		50% {opacity: 0;}
+		100% {opacity: 1;}
+	}
+	*/
+	/* @end */
+
+/* @group .notify */
+.notify {
+	position: absolute;
+	height:auto;
+	left: 4px;
+	right: 4px;
+	bottom: 4px;
+	background-color: @modal_opacity;
+	.border-radius(@modal_border_radius);
+	.box-shadow(0px 0px 4px rgba(0,0,0,0.3));
+	.transform(translateY(100%));
+	.transition(all, @keyframe, @defaultTrasition);
+	opacity: 0;
+	color: @font_color;
+	text-shadow: 0 1px 0px rgba(0,0,0,0.5);
+}
+
+.notify.info { .background-linear-gradient(0, #e8e8e8 , 75% , #c0c0c0 );}
+.notify.error { .background-linear-gradient(0, #e75d65 , 75% , #ac000f ); }
+.notify.alert { .background-linear-gradient(0, #f5dd42 , 75% , #e8a400 ); }
+.notify.success { .background-linear-gradient(0, #95ee6b, 75%, #4d970c);}
+	.notify.info, .notify.alert{
+		color: @notify_font_color;
+		text-shadow: @notify_font_shadow;
+	}
+
+	.notify.show {
+		opacity: 1;
+		.transform(translateY(0%));
+	}
+
+	.notify .icon {
+		margin: 6px 6px 6px 10px;
+		float:left;
+		font-size: 53px;
+		line-height: 40px;
+	}
+
+	.notify strong {
+		margin: 14px 0 -12px;
+		max-height:12px;
+
+		display: block;
+		overflow: hidden;
+
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		font-size: 1.15em;
+		text-transform: uppercase;
+		line-height:12px;
+	}
+
+	.notify small {
+		font-size: 0.9em;
+	}
+/* @end */
